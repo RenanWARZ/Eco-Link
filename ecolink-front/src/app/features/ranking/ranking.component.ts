@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RankingService } from '../../core/services/ranking.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Ranking } from '../../core/models/index';
-import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import {  } from '../../shared/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-ranking',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule],
   template: `
     <div class="page-shell">
       <header class="page-header" style="background:linear-gradient(135deg,#1e1b4b,#4338ca)">
@@ -47,7 +47,6 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
           </div>
         </div>
       </div>
-      <app-navbar></app-navbar>
     </div>
   `,
   styles: [`

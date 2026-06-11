@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ActivityService } from '../../core/services/activity.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Activity } from '../../core/models/index';
-import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import {  } from '../../shared/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-pontuacao',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule],
   template: `
     <div class="page-shell">
       <header class="pts-header">
@@ -62,13 +62,12 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
           </div>
         </div>
       </div>
-      <app-navbar></app-navbar>
     </div>
   `,
   styles: [`
     .pts-header {
       background: linear-gradient(135deg, #1a4d24, var(--green));
-      padding: 52px 18px 28px; color: #fff;
+      padding: 40px 18px 28px; color: #fff;
     }
     .pts-hero { }
     .pts-eyebrow { font-size: 11px; opacity: .6; text-transform: uppercase; letter-spacing: .07em; }

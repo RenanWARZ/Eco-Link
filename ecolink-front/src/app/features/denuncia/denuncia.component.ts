@@ -4,12 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { ComplaintService } from '../../core/services/complaint.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Complaint, ComplaintPriority, ComplaintStatus } from '../../core/models/index';
-import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import {  } from '../../shared/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-denuncia',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent],
+  imports: [CommonModule, FormsModule],
   template: `
     <div class="page-shell">
       <header class="page-header" style="background:linear-gradient(135deg,#7f1d1d,#c0392b)">
@@ -80,7 +80,6 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
           </div>
         </div>
       </div>
-      <app-navbar></app-navbar>
     </div>
   `,
   styles: [`

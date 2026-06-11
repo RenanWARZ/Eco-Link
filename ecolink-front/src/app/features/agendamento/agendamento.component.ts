@@ -4,12 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { ScheduleService } from '../../core/services/schedule.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Schedule, ScheduleStatus } from '../../core/models/index';
-import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import {  } from '../../shared/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-agendamento',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent],
+  imports: [CommonModule, FormsModule],
   template: `
     <div class="page-shell">
       <header class="page-header" style="background:linear-gradient(135deg,#064e3b,#059669)">
@@ -84,7 +84,6 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
           </div>
         </div>
       </div>
-      <app-navbar></app-navbar>
     </div>
   `,
   styles: [`

@@ -5,12 +5,12 @@ import { AuthService } from '../../core/services/auth.service';
 import { ActivityService } from '../../core/services/activity.service';
 import { RankingService } from '../../core/services/ranking.service';
 import { Activity, Ranking } from '../../core/models/index';
-import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import {  } from '../../shared/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, NavbarComponent],
+  imports: [CommonModule, RouterLink],
   template: `
     <div class="page-shell">
       <header class="home-header">
@@ -79,13 +79,12 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
           </div>
         </section>
       </div>
-      <app-navbar></app-navbar>
     </div>
   `,
   styles: [`
     .home-header {
       background: linear-gradient(135deg, #1a4d24, var(--green));
-      padding: 52px 18px 24px;
+      padding: 40px 18px 24px;
     }
     .header-inner { display: flex; justify-content: space-between; align-items: flex-start; }
     .greeting-hi { display: block; font-size: 13px; color: rgba(255,255,255,.65); margin-bottom: 4px; }

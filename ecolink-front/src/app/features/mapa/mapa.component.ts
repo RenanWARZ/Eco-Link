@@ -2,14 +2,14 @@ import { Component, OnInit, AfterViewInit, OnDestroy, signal, inject } from '@an
 import { CommonModule } from '@angular/common';
 import { RecyclingPointService } from '../../core/services/recycling-point.service';
 import { RecyclingPoint } from '../../core/models/index';
-import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import {  } from '../../shared/components/navbar/navbar.component';
 
 declare const L: any;
 
 @Component({
   selector: 'app-mapa',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule],
   template: `
     <div class="page-shell">
       <header class="page-header" style="background:linear-gradient(135deg,#1a4d24,var(--green))">
@@ -54,7 +54,6 @@ declare const L: any;
           </div>
         </div>
       </div>
-      <app-navbar></app-navbar>
     </div>
   `,
   styles: [`
