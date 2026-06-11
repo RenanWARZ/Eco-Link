@@ -18,30 +18,38 @@ declare const L: any;
       </header>
 
       <div class="container">
-        <div id="map-el" style="height:260px; border-radius:var(--r); margin:16px 0; overflow:hidden; box-shadow:var(--sh-sm)"></div>
+        <div class="mapa-layout">
+          <!-- Map -->
+          <div class="map-col">
+            <div id="map-el" class="map-box"></div>
+          </div>
 
-        <div *ngIf="loading()" class="empty-state"><p>Carregando pontos…</p></div>
-        <div *ngIf="!loading() && points().length === 0" class="empty-state">
-          <div class="empty-icon">🗺</div><p>Nenhum ponto cadastrado ainda.</p>
-        </div>
-
-        <div *ngIf="!loading() && points().length > 0" class="pts-list">
-          <div class="pt-card card card-accent" *ngFor="let p of points()" (click)="focus(p)">
-            <div class="pt-top">
-              <div class="pt-info">
-                <p class="pt-name">{{ p.name }}</p>
-                <p class="pt-addr">{{ p.address }}</p>
+          <!-- List -->
+          <div class="list-col">
+            <p class="section-title" style="margin-top:16px">Pontos de coleta</p>
+            <div *ngIf="loading()" class="empty-state"><p>Carregando pontos…</p></div>
+            <div *ngIf="!loading() && points().length === 0" class="empty-state">
+              <div class="empty-icon">🗺</div><p>Nenhum ponto cadastrado.</p>
+            </div>
+            <div *ngIf="!loading() && points().length > 0" class="pts-list">
+              <div class="pt-card card card-accent" *ngFor="let p of points()" (click)="focus(p)">
+                <div class="pt-top">
+                  <div class="pt-info">
+                    <p class="pt-name">{{ p.name }}</p>
+                    <p class="pt-addr">{{ p.address }}</p>
+                  </div>
+                  <span [class]="'badge ' + (p.isActive ? 'badge-green' : 'badge-gray')">
+                    {{ p.isActive ? 'Ativo' : 'Inativo' }}
+                  </span>
+                </div>
+                <div class="pt-types">
+                  <span class="type-pill" *ngFor="let t of parseTypes(p.types)">{{ t }}</span>
+                </div>
+                <div *ngIf="p.capacity" class="pt-load">
+                  <div class="load-track"><div class="load-bar" [style.width.%]="occ(p)"></div></div>
+                  <span class="load-pct">{{ occ(p).toFixed(0) }}% ocupado</span>
+                </div>
               </div>
-              <span [class]="'badge ' + (p.isActive ? 'badge-green' : 'badge-gray')">
-                {{ p.isActive ? 'Ativo' : 'Inativo' }}
-              </span>
-            </div>
-            <div class="pt-types">
-              <span class="type-pill" *ngFor="let t of parseTypes(p.types)">{{ t }}</span>
-            </div>
-            <div *ngIf="p.capacity" class="pt-load">
-              <div class="load-track"><div class="load-bar" [style.width.%]="occ(p)"></div></div>
-              <span class="load-pct">{{ occ(p).toFixed(0) }}%</span>
             </div>
           </div>
         </div>
@@ -50,6 +58,18 @@ declare const L: any;
     </div>
   `,
   styles: [`
+    /* Mobile: map on top, list below */
+    .mapa-layout { display: flex; flex-direction: column; }
+    .map-col { }
+    .map-box {
+      height: 240px;
+      border-radius: var(--r);
+      margin: 16px 0 0;
+      overflow: hidden;
+      box-shadow: var(--sh-sm);
+    }
+    .list-col { }
+
     .pts-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
     .pt-card { padding: 14px 16px; cursor: pointer; transition: transform .14s; }
     .pt-card:hover { transform: translateY(-1px); box-shadow: var(--sh-sm); }
@@ -62,6 +82,21 @@ declare const L: any;
     .load-track { flex: 1; height: 4px; background: var(--line); border-radius: 99px; overflow: hidden; }
     .load-bar { height: 100%; background: var(--green); border-radius: 99px; transition: width .3s; }
     .load-pct { font-size: 11px; color: var(--ink-muted); white-space: nowrap; }
+
+    /* Tablet: taller map */
+    @media (min-width: 768px) {
+      .map-box { height: 320px; }
+      .pts-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    }
+
+    /* Desktop: map and list side by side */
+    @media (min-width: 1024px) {
+      .mapa-layout { flex-direction: row; gap: 28px; align-items: flex-start; margin-top: 16px; }
+      .map-col { flex: 0 0 420px; position: sticky; top: 20px; }
+      .map-box { height: 520px; margin: 0; }
+      .list-col { flex: 1; min-width: 0; }
+      .pts-list { grid-template-columns: 1fr; }
+    }
   `]
 })
 export class MapaComponent implements OnInit, AfterViewInit, OnDestroy {

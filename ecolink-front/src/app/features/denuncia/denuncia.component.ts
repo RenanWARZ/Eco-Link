@@ -18,71 +18,67 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
       </header>
 
       <div class="container">
-        <div class="card-lg" style="margin:16px 0">
-          <p class="form-section-title">Nova ocorrência</p>
-
-          <div class="form-group">
-            <label class="form-label">Título</label>
-            <input class="form-control" type="text" [(ngModel)]="form.title" placeholder="Ex: Lixo acumulado na calçada" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Descrição</label>
-            <textarea class="form-control" [(ngModel)]="form.description" placeholder="Descreva o problema…"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Endereço</label>
-            <input class="form-control" type="text" [(ngModel)]="form.address" placeholder="Rua, número, bairro" />
-          </div>
-          <div class="coords-row">
-            <div class="form-group" style="flex:1">
-              <label class="form-label">Latitude</label>
-              <input class="form-control" type="number" step="any" [(ngModel)]="form.latitude" />
-            </div>
-            <div class="form-group" style="flex:1">
-              <label class="form-label">Longitude</label>
-              <input class="form-control" type="number" step="any" [(ngModel)]="form.longitude" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Prioridade</label>
-            <select class="form-control" [(ngModel)]="form.priority">
-              <option value="LOW">Baixa</option>
-              <option value="MEDIUM">Média</option>
-              <option value="HIGH">Alta</option>
-              <option value="CRITICAL">Crítica</option>
-            </select>
-          </div>
-
-          <button class="btn btn-secondary" style="margin-bottom:10px; width:100%" (click)="useMyLocation()">
-            ◎ Usar minha localização
-          </button>
-          <button class="btn btn-primary" (click)="submit()" [disabled]="saving()">
-            <span *ngIf="saving()" class="spinner"></span>
-            {{ saving() ? 'Enviando…' : 'Registrar Denúncia' }}
-          </button>
-          <div *ngIf="toast()" [class]="'toast ' + toastType()">{{ toast() }}</div>
-        </div>
-
-        <section>
-          <p class="section-title">Minhas denúncias</p>
-          <div *ngIf="loading()" class="empty-state"><p>Carregando…</p></div>
-          <div *ngIf="!loading() && complaints().length === 0" class="empty-state">
-            <div class="empty-icon">✓</div><p>Nenhuma denúncia registrada.</p>
-          </div>
-          <div *ngIf="!loading() && complaints().length > 0" class="comp-list">
-            <div class="comp-card card card-accent" *ngFor="let c of complaints()">
-              <div class="comp-top">
-                <p class="comp-title">{{ c.title }}</p>
-                <div class="comp-badges">
-                  <span [class]="'badge ' + priorityBadge(c.priority!)">{{ priorityLabel(c.priority!) }}</span>
-                  <span [class]="'badge ' + statusBadge(c.status!)">{{ statusLabel(c.status!) }}</span>
-                </div>
+        <div class="two-col">
+          <!-- Form -->
+          <div class="two-col-form">
+            <div class="card-lg" style="margin:16px 0">
+              <p class="form-section-title">Nova ocorrência</p>
+              <div class="form-group">
+                <label class="form-label">Título</label>
+                <input class="form-control" type="text" [(ngModel)]="form.title" placeholder="Ex: Lixo acumulado na calçada" />
               </div>
-              <p class="comp-desc">{{ c.description }}</p>
-              <p class="comp-date">{{ c.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+              <div class="form-group">
+                <label class="form-label">Descrição</label>
+                <textarea class="form-control" [(ngModel)]="form.description" placeholder="Descreva o problema…"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Endereço</label>
+                <input class="form-control" type="text" [(ngModel)]="form.address" placeholder="Rua, número, bairro" />
+              </div>
+              <div class="coords-row">
+                <div class="form-group" style="flex:1"><label class="form-label">Latitude</label><input class="form-control" type="number" step="any" [(ngModel)]="form.latitude" /></div>
+                <div class="form-group" style="flex:1"><label class="form-label">Longitude</label><input class="form-control" type="number" step="any" [(ngModel)]="form.longitude" /></div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Prioridade</label>
+                <select class="form-control" [(ngModel)]="form.priority">
+                  <option value="LOW">Baixa</option>
+                  <option value="MEDIUM">Média</option>
+                  <option value="HIGH">Alta</option>
+                  <option value="CRITICAL">Crítica</option>
+                </select>
+              </div>
+              <button class="btn btn-secondary" style="margin-bottom:10px;width:100%" (click)="useMyLocation()">◎ Usar minha localização</button>
+              <button class="btn btn-primary" (click)="submit()" [disabled]="saving()">
+                <span *ngIf="saving()" class="spinner"></span>
+                {{ saving() ? 'Enviando…' : 'Registrar Denúncia' }}
+              </button>
+              <div *ngIf="toast()" [class]="'toast ' + toastType()">{{ toast() }}</div>
             </div>
           </div>
-        </section>
+
+          <!-- List -->
+          <div class="two-col-list">
+            <p class="section-title" style="margin-top:16px">Minhas denúncias</p>
+            <div *ngIf="loading()" class="empty-state"><p>Carregando…</p></div>
+            <div *ngIf="!loading() && complaints().length === 0" class="empty-state">
+              <div class="empty-icon">✓</div><p>Nenhuma denúncia registrada.</p>
+            </div>
+            <div *ngIf="!loading() && complaints().length > 0" class="comp-list">
+              <div class="comp-card card card-accent" *ngFor="let c of complaints()">
+                <div class="comp-top">
+                  <p class="comp-title">{{ c.title }}</p>
+                  <div class="comp-badges">
+                    <span [class]="'badge ' + priorityBadge(c.priority!)">{{ priorityLabel(c.priority!) }}</span>
+                    <span [class]="'badge ' + statusBadge(c.status!)">{{ statusLabel(c.status!) }}</span>
+                  </div>
+                </div>
+                <p class="comp-desc">{{ c.description }}</p>
+                <p class="comp-date">{{ c.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <app-navbar></app-navbar>
     </div>
@@ -97,16 +93,18 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
     .comp-badges { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; flex-shrink: 0; }
     .comp-desc { font-size: 13px; color: var(--ink-soft); margin-bottom: 6px; }
     .comp-date { font-size: 11px; color: var(--ink-muted); }
+
+    @media (min-width: 768px) {
+      .comp-badges { flex-direction: row; }
+    }
   `]
 })
 export class DenunciaComponent implements OnInit {
   private svc = inject(ComplaintService);
   private auth = inject(AuthService);
   complaints = signal<Complaint[]>([]);
-  loading = signal(true);
-  saving = signal(false);
-  toast = signal('');
-  toastType = signal('success');
+  loading = signal(true); saving = signal(false);
+  toast = signal(''); toastType = signal('success');
   form = { title: '', description: '', address: '', latitude: 0, longitude: 0, priority: 'MEDIUM' as ComplaintPriority };
 
   ngOnInit(): void {
@@ -115,9 +113,7 @@ export class DenunciaComponent implements OnInit {
     this.svc.getByUserId(uid).subscribe({ next: (l: Complaint[]) => { this.complaints.set(l); this.loading.set(false); }, error: () => this.loading.set(false) });
   }
 
-  useMyLocation(): void {
-    navigator.geolocation?.getCurrentPosition(p => { this.form.latitude = p.coords.latitude; this.form.longitude = p.coords.longitude; });
-  }
+  useMyLocation(): void { navigator.geolocation?.getCurrentPosition(p => { this.form.latitude = p.coords.latitude; this.form.longitude = p.coords.longitude; }); }
 
   submit(): void {
     const uid = this.auth.getCurrentUserId();

@@ -13,11 +13,10 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
     <div class="page-shell">
       <header class="page-header" style="background:linear-gradient(135deg,#1e1b4b,#4338ca)">
         <h1 class="page-title">Ranking</h1>
-        <p class="page-sub">Os cidadãos mais sustentáveis</p>
+        <p class="page-sub">Os cidadãos mais sustentáveis de Maringá</p>
       </header>
 
       <div class="container">
-        <!-- My position -->
         <div *ngIf="myRanking()" class="my-rank card card-accent" style="margin:16px 0">
           <div class="my-rank-row">
             <span class="my-pos">{{ medal(myRanking()?.rank ?? 99) || '#' + myRanking()?.rank }}</span>
@@ -28,27 +27,25 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
           </div>
         </div>
 
-        <section>
-          <p class="section-title">Top Recicladores</p>
-          <div *ngIf="loading()" class="empty-state"><p>Carregando…</p></div>
-          <div *ngIf="!loading() && rankings().length === 0" class="empty-state">
-            <div class="empty-icon">🏆</div><p>Nenhum dado ainda.</p>
-          </div>
-          <div *ngIf="!loading() && rankings().length > 0" class="rank-list">
-            <div class="rank-row-item card" *ngFor="let r of rankings(); let i = index"
-                 [class.is-me]="r.user?.id === currentUser()?.id">
-              <span class="pos">{{ medal(i+1) || (i+1) }}</span>
-              <div class="rank-user">
-                <p class="rank-name">{{ r.user?.name ?? 'Usuário' }}</p>
-                <p class="rank-email">{{ r.user?.email }}</p>
-              </div>
-              <div class="rank-score">
-                <span class="score-val">{{ r.totalPoints }}</span>
-                <span class="score-lbl">pts</span>
-              </div>
+        <p class="section-title">Top Recicladores</p>
+        <div *ngIf="loading()" class="empty-state"><p>Carregando…</p></div>
+        <div *ngIf="!loading() && rankings().length === 0" class="empty-state">
+          <div class="empty-icon">🏆</div><p>Nenhum dado ainda.</p>
+        </div>
+        <div *ngIf="!loading() && rankings().length > 0" class="rank-list">
+          <div class="rank-row card" *ngFor="let r of rankings(); let i = index"
+               [class.is-me]="r.user?.id === currentUser()?.id">
+            <span class="pos">{{ medal(i+1) || (i+1) }}</span>
+            <div class="rank-user">
+              <p class="rank-name">{{ r.user?.name ?? 'Usuário' }}</p>
+              <p class="rank-email">{{ r.user?.email }}</p>
+            </div>
+            <div class="rank-score">
+              <span class="score-val">{{ r.totalPoints }}</span>
+              <span class="score-lbl">pts</span>
             </div>
           </div>
-        </section>
+        </div>
       </div>
       <app-navbar></app-navbar>
     </div>
@@ -61,8 +58,8 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
     .my-pts-lbl { font-size: 12px; color: var(--ink-muted); margin-top: 1px; }
 
     .rank-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-    .rank-row-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; }
-    .rank-row-item.is-me { border-color: var(--green-line); background: var(--green-bg); }
+    .rank-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; }
+    .rank-row.is-me { border-color: var(--green-line); background: var(--green-bg); }
     .pos { font-family: var(--font-head); font-size: 16px; font-weight: 700; width: 32px; text-align: center; color: var(--ink-muted); flex-shrink: 0; }
     .rank-user { flex: 1; min-width: 0; }
     .rank-name { font-size: 14px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -70,6 +67,19 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
     .rank-score { text-align: right; flex-shrink: 0; }
     .score-val { display: block; font-family: var(--font-head); font-size: 18px; font-weight: 700; color: var(--green); }
     .score-lbl { font-size: 10px; color: var(--ink-muted); text-transform: uppercase; }
+
+    /* Tablet: 2-col grid */
+    @media (min-width: 768px) {
+      .rank-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .my-pos { font-size: 42px; }
+    }
+
+    /* Desktop: single wider column */
+    @media (min-width: 1024px) {
+      .rank-list { grid-template-columns: 1fr; max-width: 640px; }
+      .rank-name { font-size: 15px; }
+      .score-val { font-size: 22px; }
+    }
   `]
 })
 export class RankingComponent implements OnInit {

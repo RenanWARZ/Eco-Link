@@ -1,59 +1,86 @@
-# EcolinkFront
+# EcoLink — Frontend Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.14.
+Projeto frontend Angular 17 conectado ao backend Spring Boot (`ecolink-back`).
 
-## Development server
+---
 
-To start a local development server, run:
+## Pré-requisitos
 
+- Node.js 18+
+- Angular CLI 17: `npm install -g @angular/cli`
+- Backend `ecolink-back` rodando na porta **8080**
+
+---
+
+## Como rodar
+
+### 1. Instalar dependências
 ```bash
-ng serve
+npm install
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+### 2. Subir o backend primeiro
+No projeto `ecolink-back`:
 ```bash
-ng generate component component-name
+./mvnw spring-boot:run
+```
+O backend sobe em `http://localhost:8080` com context-path `/api`.
+
+### 3. Rodar o frontend
+```bash
+npm start
+```
+O Angular sobe em `http://localhost:4200` e faz proxy das chamadas `/api` para `http://localhost:8080`.
+
+---
+
+## Estrutura do projeto
+
+```
+src/app/
+├── core/
+│   ├── models/          # Interfaces TypeScript (User, Complaint, Schedule, etc.)
+│   ├── services/        # Services HTTP conectados ao backend
+│   │   ├── auth.service.ts
+│   │   ├── user.service.ts
+│   │   ├── activity.service.ts
+│   │   ├── complaint.service.ts
+│   │   ├── recycling-point.service.ts
+│   │   ├── schedule.service.ts
+│   │   └── ranking.service.ts
+│   └── interceptors/    # HTTP interceptors
+├── features/
+│   ├── auth/            # Tela de Login  (POST /api/users)
+│   ├── home/            # Home + atividades recentes
+│   ├── mapa/            # Mapa Leaflet + pontos de reciclagem
+│   ├── pontuacao/       # Gamificação + histórico
+│   ├── denuncia/        # Registrar e listar denúncias
+│   ├── agendamento/     # Agendar e cancelar coletas
+│   └── ranking/         # Top rankings
+└── shared/
+    └── components/
+        └── navbar/      # Bottom navigation bar
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## Endpoints utilizados
 
-## Building
+| Tela          | Endpoint backend                             |
+|---------------|----------------------------------------------|
+| Login         | `POST /api/users`                            |
+| Home          | `GET /api/activities/user/{id}`, `GET /api/rankings/user/{id}` |
+| Mapa          | `GET /api/recycling-points`                  |
+| Pontuação     | `GET /api/activities/user/{id}/history`      |
+| Denúncia      | `POST /api/complaints`, `GET /api/complaints/user/{id}` |
+| Agendamento   | `POST /api/schedules`, `GET /api/schedules/user/{id}`, `PUT /api/schedules/{id}/cancel` |
+| Ranking       | `GET /api/rankings`, `GET /api/rankings/user/{id}` |
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## Observações
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- O login usa `POST /api/users` com `openId = email` (cria ou atualiza o usuário).
+- O usuário logado é salvo no `localStorage` via `AuthService`.
+- O mapa usa [Leaflet](https://leafletjs.com/) carregado via CDN.
+- Para CORS funcionar em produção, certifique-se que o backend tem `cors.allowed-origins` com a URL do frontend.
