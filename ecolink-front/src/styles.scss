@@ -1,0 +1,421 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+/* ── Tokens ─────────────────────────────────── */
+:root {
+  /* Palette — clean with one bold green */
+  --ink: #0f1711;
+  --ink-soft: #4a5c4e;
+  --ink-muted: #8fa593;
+  --line: #e4ebe5;
+  --surface: #f8faf8;
+  --white: #ffffff;
+
+  --green: #2d7a3a;
+  --green-mid: #3d9b4a;
+  --green-pop: #4aba59;
+  --green-bg: #eef6ef;
+  --green-line: #c5e0c9;
+
+  --amber: #d97706;
+  --amber-bg: #fef3c7;
+  --red: #c0392b;
+  --red-bg: #fdecea;
+  --blue: #2563eb;
+  --blue-bg: #eff6ff;
+
+  /* Type */
+  --font: 'Inter', system-ui, sans-serif;
+  --font-head: 'DM Sans', system-ui, sans-serif;
+
+  /* Space */
+  --r-sm: 6px;
+  --r: 10px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+
+  /* Shadow */
+  --sh-xs: 0 1px 2px rgba(15, 23, 17, .06);
+  --sh-sm: 0 2px 8px rgba(15, 23, 17, .07);
+  --sh: 0 4px 20px rgba(15, 23, 17, .09);
+
+  --nav-h: 60px;
+}
+
+/* ── Reset ───────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.55;
+  background: var(--surface);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Shell ───────────────────────────────────── */
+.page-shell {
+  min-height: 100vh;
+  padding-bottom: calc(var(--nav-h) + 20px);
+}
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 18px;
+}
+
+/* ── Typography ──────────────────────────────── */
+h1,
+h2,
+h3 {
+  font-family: var(--font-head);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.section-title {
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+/* ── Cards ───────────────────────────────────── */
+.card {
+  background: var(--white);
+  border-radius: var(--r);
+  border: 1px solid var(--line);
+  padding: 16px;
+  box-shadow: var(--sh-xs);
+}
+
+.card-lg {
+  background: var(--white);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--line);
+  padding: 22px 20px;
+  box-shadow: var(--sh-sm);
+}
+
+/* Signature element: accent left-border on cards */
+.card-accent {
+  border-left: 3px solid var(--green);
+}
+
+/* ── Buttons ─────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--r);
+  cursor: pointer;
+  padding: 10px 18px;
+  transition: background .14s, transform .12s, box-shadow .14s;
+  text-decoration: none;
+  letter-spacing: .01em;
+}
+
+.btn-primary {
+  background: var(--green);
+  color: var(--white);
+  width: 100%;
+  padding: 13px;
+  border-radius: var(--r-lg);
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(45, 122, 58, .25);
+
+  &:hover:not(:disabled) {
+    background: var(--green-mid);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(45, 122, 58, .3);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--green);
+  border: 1.5px solid var(--green-line);
+
+  &:hover {
+    background: var(--green-bg);
+  }
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-soft);
+
+  &:hover {
+    background: var(--line);
+  }
+}
+
+.btn-danger {
+  background: var(--red);
+  color: var(--white);
+
+  &:hover {
+    background: #a93226;
+  }
+}
+
+.btn-secondary {
+  background: var(--green-bg);
+  color: var(--green);
+
+  &:hover {
+    background: var(--green-line);
+  }
+}
+
+/* ── Forms ───────────────────────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.form-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--white);
+  transition: border-color .15s, box-shadow .15s;
+  outline: none;
+
+  &:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(45, 122, 58, .1);
+  }
+
+  &::placeholder {
+    color: var(--line);
+  }
+}
+
+select.form-control {
+  cursor: pointer;
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 88px;
+}
+
+/* ── Badges ──────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+
+.badge-green {
+  background: var(--green-bg);
+  color: var(--green);
+}
+
+.badge-warning {
+  background: var(--amber-bg);
+  color: var(--amber);
+}
+
+.badge-danger {
+  background: var(--red-bg);
+  color: var(--red);
+}
+
+.badge-info {
+  background: var(--blue-bg);
+  color: var(--blue);
+}
+
+.badge-gray {
+  background: var(--line);
+  color: var(--ink-soft);
+}
+
+/* ── Toast ───────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: calc(var(--nav-h) + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: var(--white);
+  padding: 10px 18px;
+  border-radius: var(--r-lg);
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 9999;
+  white-space: nowrap;
+  box-shadow: var(--sh);
+  animation: slideUp .2s ease;
+}
+
+.toast.success {
+  background: var(--green);
+}
+
+.toast.error {
+  background: var(--red);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* ── Spinner ─────────────────────────────────── */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, .35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .6s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Empty state ─────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--ink-muted);
+
+  .empty-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+    opacity: .5;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
+
+/* ── Page header base ────────────────────────── */
+.page-header {
+  padding: 52px 18px 22px;
+  color: var(--white);
+
+  .page-title {
+    font-family: var(--font-head);
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .page-sub {
+    font-size: 13px;
+    opacity: .7;
+    margin-top: 3px;
+  }
+}
+
+/* ── Status / Priority colors ────────────────── */
+.priority-LOW {
+  color: var(--green);
+}
+
+.priority-MEDIUM {
+  color: var(--amber);
+}
+
+.priority-HIGH {
+  color: #e07b00;
+}
+
+.priority-CRITICAL {
+  color: var(--red);
+}
+
+.status-OPEN {
+  color: var(--blue);
+}
+
+.status-IN_PROGRESS {
+  color: var(--amber);
+}
+
+.status-RESOLVED {
+  color: var(--green);
+}
+
+.status-CLOSED {
+  color: var(--ink-muted);
+}
+
+.status-PENDING {
+  color: var(--amber);
+}
+
+.status-CONFIRMED {
+  color: var(--green);
+}
+
+.status-COMPLETED {
+  color: var(--green);
+}
+
+.status-CANCELLED {
+  color: var(--red);
+}
+
+/* ── Leaflet fix ─────────────────────────────── */
+.leaflet-container {
+  border-radius: var(--r);
+}

@@ -1,0 +1,43 @@
+-- ============================================================
+-- PONTOS DE RECICLAGEM - MARINGÁ / PR
+-- Execute no banco PostgreSQL: ecolink
+-- ============================================================
+
+INSERT INTO recycling_points (name, address, latitude, longitude, types, capacity, current_load, is_active, created_at, updated_at) VALUES
+
+-- COOPERATIVAS
+('CooperCicla', 'Av. Guairá, 184 - Zona 7, Maringá - PR', -23.4253, -51.9386, '["plástico","papel","metal","vidro"]', 5000, 1200, true, NOW(), NOW()),
+('CooperMaringá', 'Rodovia PR-317, s/n - Jardim Industrial, Maringá - PR', -23.4721, -51.9643, '["plástico","papel","metal","vidro","orgânico"]', 8000, 2000, true, NOW(), NOW()),
+('CooperPalmeiras', 'Rodovia PR-317, 200 - Maringá - PR', -23.4715, -51.9638, '["plástico","papel","metal","vidro"]', 6000, 1500, true, NOW(), NOW()),
+('CooperNorte', 'Rodovia PR-317, 200 - Maringá - PR', -23.4710, -51.9630, '["plástico","papel","metal"]', 4000, 900, true, NOW(), NOW()),
+('CooperAmbiental', 'Rua Izaura Gambá Vitorino, 345 - Maringá - PR', -23.4180, -51.9120, '["plástico","papel","metal","vidro","eletrônico"]', 5000, 1100, true, NOW(), NOW()),
+
+-- SUPERMERCADOS
+('Ecoponto Super Muffato - Zona Norte', 'Av. João Paulino Vieira Filho, 190 - Maringá - PR', -23.3891, -51.9254, '["plástico","papel","metal","vidro","óleo"]', 500, 80, true, NOW(), NOW()),
+('Ecoponto Super Muffato - Cerro Azul', 'Av. Cerro Azul, 2075 - Maringá - PR', -23.4056, -51.9387, '["plástico","papel","metal","vidro","óleo"]', 500, 120, true, NOW(), NOW()),
+('Ecoponto Super Muffato Gourmet', 'Av. São Paulo, 1197 - Maringá - PR', -23.4198, -51.9412, '["plástico","papel","metal","vidro","óleo"]', 500, 95, true, NOW(), NOW()),
+('Ecoponto Catuaí Shopping', 'Av. Carneiro Leão, 563 - Maringá - PR', -23.4312, -51.9185, '["plástico","papel","metal","pilha","bateria","eletrônico"]', 800, 200, true, NOW(), NOW()),
+
+-- POSTOS MILITARES / PÚBLICOS
+('Tiro de Guerra de Maringá', 'Av. Mandacaru, 730 - Maringá - PR', -23.4087, -51.9301, '["plástico","papel","metal","vidro"]', 1000, 250, true, NOW(), NOW()),
+('4º Batalhão de Polícia Militar', 'Rua Mitsuzo Taguchi, 99 - Maringá - PR', -23.4142, -51.9198, '["plástico","papel","metal"]', 800, 150, true, NOW(), NOW()),
+('Sub-Prefeitura de Floriano', 'Rua Pion. Octavio Franco, 1135 - Floriano, Maringá - PR', -23.3756, -51.8943, '["plástico","papel","metal","vidro"]', 1000, 200, true, NOW(), NOW()),
+
+-- PARÓQUIAS
+('Paróquia Menino Jesus de Praga', 'Rua Monsenhor Kimura, 31 - Maringá - PR', -23.4221, -51.9334, '["plástico","papel","metal","vidro","óleo"]', 300, 60, true, NOW(), NOW()),
+('Paróquia Cristo Ressuscitado', 'Av. Rio Branco, 1000 - Maringá - PR', -23.4089, -51.9456, '["plástico","papel","vidro","óleo"]', 300, 45, true, NOW(), NOW()),
+('Paróquia Nossa Senhora de Guadalupe', 'Av. Carlos Borges, 1999 - Maringá - PR', -23.4356, -51.9512, '["plástico","papel","metal","vidro"]', 300, 70, true, NOW(), NOW()),
+('Paróquia Santo Antônio', 'Praça Santo Antônio, s/n - Maringá - PR', -23.4201, -51.9287, '["plástico","papel","metal","vidro"]', 300, 55, true, NOW(), NOW()),
+('Paróquia Santa Maria Goretti', 'Rua Visconde de Nassau, 534 - Maringá - PR', -23.4318, -51.9423, '["plástico","papel","vidro","óleo"]', 300, 40, true, NOW(), NOW()),
+
+-- ECOPONTO ÓLEO
+('Escola Municipal Zuleide Sanways', 'Rua Rio Grande do Norte, 1459 - Maringá - PR', -23.4445, -51.9267, '["óleo"]', 200, 30, true, NOW(), NOW()),
+
+-- CÂMARA MUNICIPAL
+('Câmara Municipal de Maringá', 'Av. Papa João XXIII, 239 - Maringá - PR', -23.4235, -51.9389, '["plástico","papel","metal","vidro"]', 500, 100, true, NOW(), NOW()),
+
+-- RECICLAVEIS CIDADE VERDE
+('Recicláveis Cidade Verde', 'Rua Mitsuzo Taguchi - Vila Nova, Maringá - PR', -23.4150, -51.9205, '["plástico","papel","metal","vidro","eletrônico","bateria","pilha"]', 3000, 700, true, NOW(), NOW());
+
+-- Verificar inserção
+SELECT id, name, address, is_active FROM recycling_points ORDER BY id;
